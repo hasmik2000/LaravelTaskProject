@@ -40,14 +40,14 @@ class DeleteTasks extends Command
     public function handle()
     {
         $status_id = Status::where('name', 'done')->first()->id;
-        $task = Task::all()->where('status_id', $status_id);
+
+        $task = Task::where('status_id', $status_id);
 
         if ($this->confirm('Do you want to delete task?')) {
-            dd($status_id);
-        } else {
-            $this->error('Something went wrong');
+
+            $task->delete();
+
+            $this->info('Your task successfully deleted');
         }
-
-
     }
 }
